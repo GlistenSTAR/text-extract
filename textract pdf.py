@@ -4,6 +4,7 @@ import os
 import time
 import boto3
 from botocore.exceptions import ClientError
+
 from env import aws_access_key_id, aws_secret_access_key
 
 pdf_file = "docs/doc05857020210910103344.pdf"
@@ -34,7 +35,6 @@ def upload_file(file_name, bucket, object_name=None):
         return False
     return True
 
-# upload_file(pdf_file, bucket=bucket)
 
 def startJob(s3BucketName, objectName):
     response = None
@@ -90,6 +90,8 @@ def getJobResults(jobId):
 
     return pages
 
+
+# main
 # Document
 
 # upload_file(pdf_file, bucket=BUCKET_NAME)
