@@ -4,9 +4,7 @@ import os
 import time
 import boto3
 from botocore.exceptions import ClientError
-
-aws_access_key_id="AKIASB66JFBS2OSVJAQD" 
-aws_secret_access_key= "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"
+from env import aws_access_key_id, aws_secret_access_key
 
 pdf_file = "docs/doc05857020210910103344.pdf"
 
