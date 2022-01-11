@@ -6,6 +6,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 from env import aws_access_key_id, aws_secret_access_key
+from store import filter
 
 pdf_file = "docs/doc05857020210910103344.pdf"
 
@@ -15,6 +16,7 @@ textract_client = boto3.client('textract', aws_access_key_id=aws_access_key_id, 
 s3_client = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=REGION_NAME)
 
 def upload_file(file_name, bucket, object_name=None):
+    # Step 1
     """Upload a file to an S3 bucket
 
     :param file_name: File to upload
@@ -35,8 +37,8 @@ def upload_file(file_name, bucket, object_name=None):
         return False
     return True
 
-
 def startJob(s3BucketName, objectName):
+    # step 2
     response = None
     response = textract_client.start_document_text_detection(
         DocumentLocation={
@@ -50,6 +52,7 @@ def startJob(s3BucketName, objectName):
     return response["JobId"]
 
 def isJobComplete(jobId):
+    # step 3
     time.sleep(5)
     response = textract_client.get_document_text_detection(JobId=jobId)
     status = response["JobStatus"]
@@ -64,7 +67,7 @@ def isJobComplete(jobId):
     return status
 
 def getJobResults(jobId):
-
+    # step 4
     pages = []
 
     time.sleep(5)
@@ -91,15 +94,14 @@ def getJobResults(jobId):
     return pages
 
 
-# main
 # Document
 
 # upload_file(pdf_file, bucket=BUCKET_NAME)
-
 jobId = startJob(BUCKET_NAME, "doc05857020210910103344.pdf")
 print("Started job with id: {}".format(jobId))
 if(isJobComplete(jobId)):
     response = getJobResults(jobId)
+    filter(response)
     response_file = open("response.json", "w")
     # magic happens here to make it pretty-printed
     response_file.write(simplejson.dumps(response, indent=4, sort_keys=True))
