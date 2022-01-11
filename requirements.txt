@@ -1,5 +1,3 @@
 simplejson
-logging
-os
-time
 boto3
+shapely
