@@ -39,16 +39,12 @@ def upload_file(file_name, bucket, object_name=None):
 def startJob(s3BucketName, objectName):
     response = None
     response = textract_client.start_document_text_detection(
-    DocumentLocation={
-        'S3Object': {
-            'Bucket': s3BucketName,
-            'Name': objectName
-        },
-    },
-    OutputConfig={
-        'S3Bucket': s3BucketName,
-        'S3Prefix': 'response'
-    }
+        DocumentLocation={
+            'S3Object': {
+                'Bucket': s3BucketName,
+                'Name': objectName
+            },
+        }
     )
 
     return response["JobId"]
@@ -95,7 +91,9 @@ def getJobResults(jobId):
     return pages
 
 # Document
+
 # upload_file(pdf_file, bucket=BUCKET_NAME)
+
 jobId = startJob(BUCKET_NAME, "doc05857020210910103344.pdf")
 print("Started job with id: {}".format(jobId))
 if(isJobComplete(jobId)):
