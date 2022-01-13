@@ -11,12 +11,11 @@ all_blocks = []
 
 def search_bottom_filter(item, items):
     result = ''
-    x = item["Polygon"][0]["X"] + 1e-2
-    y = item["Polygon"][0]["Y"] + item["BoundingBox"]["Height"] * 2
+    x = item['Geometry']["Polygon"][0]["X"] + 1e-2
+    y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 2
     point = Point(x, y)
-
     for polygon_object in items:
-        if(polygon_object["BlockType"] == "LINE"):
+        if(polygon_object["Page"] == item["Page"]):
             # check contain point on ploygon
             ploygon = []
             for points in polygon_object["Geometry"]["Polygon"]:
@@ -54,7 +53,7 @@ def filter(response):
         # Get date of register
         if(item["Text"] == "Datum registratie" and ("Datum_registratie" not in finialDic)):
             cutted_blocks = all_blocks[key:] # cut the array for speed
-            finialDic["Datum_registratie"] = search_bottom_filter(item["Geometry"], cutted_blocks)
+            finialDic["Datum_registratie"] = search_bottom_filter(item, cutted_blocks)
             continue
 
         # Get class name
@@ -85,17 +84,17 @@ def filter(response):
         # Get address
         if(item["Text"] == "Adres" and address1==''):
             cutted_blocks = all_blocks[key:] # cut the array for speed
-            address1 = search_bottom_filter(item["Geometry"], cutted_blocks)
+            address1 = search_bottom_filter(item, cutted_blocks)
             continue
 
         if(address1 != '' and address2 == '' and item["Text"] == address1):
             cutted_blocks = all_blocks[key:] # cut the array for speed
-            address2 = search_bottom_filter(item["Geometry"], cutted_blocks)
+            address2 = search_bottom_filter(item, cutted_blocks)
             continue
 
         if(address2 != '' and address3 == '' and item["Text"] == address2):
             cutted_blocks = all_blocks[key:] # cut the array for speed
-            address3 = search_bottom_filter(item["Geometry"], cutted_blocks)
+            address3 = search_bottom_filter(item, cutted_blocks)
             continue
         
         finialDic["address"] = address1 + " / " + address2 + " / " + address3
@@ -114,11 +113,11 @@ def filter(response):
         # Get Woningtype
         if(item["Text"] == "Woningtype" and woningtype1==''):
             cutted_blocks = all_blocks[key:] # cut the array for speed
-            woningtype1 = search_bottom_filter(item["Geometry"], cutted_blocks)
+            woningtype1 = search_bottom_filter(item, cutted_blocks)
             continue
         if(woningtype1!='' and woningtype2=='' and item["Text"] == woningtype1):
             cutted_blocks = all_blocks[key:] # cut the array for speed
-            woningtype2 = search_bottom_filter(item["Geometry"], cutted_blocks)
+            woningtype2 = search_bottom_filter(item, cutted_blocks)
             continue
 
         finialDic["woningtype"] = woningtype1 + " / " + woningtype2
