@@ -96,5 +96,23 @@ def filter(response):
                     Zonnepanelen = response[0]['Blocks'][key+1]["Text"]
                     continue
     
+                # Get address
+                if(item["Text"] == "Adres" and address1==''):
+                    cutted_blocks = blocks[key:] # cut the array for speed
+                    address1 = search_bottom_filter(item["Geometry"], cutted_blocks)
+                    continue
+
+                if(address1!='' and address2=='' and item["Text"] == address1):
+                    cutted_blocks = blocks[key:] # cut the array for speed
+                    address2 = search_bottom_filter(item["Geometry"], cutted_blocks)
+                    continue
+
+                if(address2!='' and address3=='' and item["Text"] == address2):
+                    cutted_blocks = blocks[key:] # cut the array for speed
+                    address3 = search_bottom_filter(item["Geometry"], cutted_blocks)
+                    continue
+                
+                address = address1 +"  "+ address2 +"  "+ address3
+                    
                 
 
