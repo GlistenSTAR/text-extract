@@ -114,5 +114,16 @@ def filter(response):
                 
                 address = address1 +"  "+ address2 +"  "+ address3
                     
+                # Get Deíailaanduiding
+                if("Bouwjaar" in item["Text"] and Bouwjaar==''):
+                    Bouwjaar = response[0]['Blocks'][key+1]["Text"]
+                    continue
+                if("Compactheid" in item["Text"] and Compactheid==''):
+                    Compactheid = response[0]['Blocks'][key+1]["Text"]
+                    continue
+                if("Vloeroppervlakte" in item["Text"] and Vloeroppervlakte==''):
+                    Vloeroppervlakte = item["Text"].split(' ', 1)[1]
+                    continue
+
                 
 
