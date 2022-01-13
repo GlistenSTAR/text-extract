@@ -125,5 +125,18 @@ def filter(response):
                     Vloeroppervlakte = item["Text"].split(' ', 1)[1]
                     continue
 
-                
+                # Get Woningtype
+                if(item["Text"] == "Woningtype" and woningtype1==''):
+                    cutted_blocks = blocks[key:] # cut the array for speed
+                    woningtype1 = search_bottom_filter(item["Geometry"], cutted_blocks)
+                    continue
+                if(woningtype1!='' and woningtype2=='' and item["Text"] == woningtype1):
+                    cutted_blocks = blocks[key:] # cut the array for speed
+                    woningtype2 = search_bottom_filter(item["Geometry"], cutted_blocks)
+                    continue
+
+                woningtype = woningtype1 + "  " + woningtype2
+
+
+    print(woningtype)
 
