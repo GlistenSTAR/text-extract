@@ -3,6 +3,7 @@ import logging
 import os
 import time
 import boto3
+import json
 from botocore.exceptions import ClientError
 
 from env import aws_access_key_id, aws_secret_access_key
@@ -15,8 +16,8 @@ REGION_NAME = "us-west-1"
 textract_client = boto3.client('textract', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=REGION_NAME)
 s3_client = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=REGION_NAME)
 
+# Step 1
 def upload_file(file_name, bucket, object_name=None):
-    # Step 1
     """Upload a file to an S3 bucket
 
     :param file_name: File to upload
@@ -37,8 +38,8 @@ def upload_file(file_name, bucket, object_name=None):
         return False
     return True
 
+# step 2
 def startJob(s3BucketName, objectName):
-    # step 2
     response = None
     response = textract_client.start_document_text_detection(
         DocumentLocation={
@@ -51,8 +52,8 @@ def startJob(s3BucketName, objectName):
 
     return response["JobId"]
 
+# step 3
 def isJobComplete(jobId):
-    # step 3
     time.sleep(5)
     response = textract_client.get_document_text_detection(JobId=jobId)
     status = response["JobStatus"]
@@ -66,8 +67,8 @@ def isJobComplete(jobId):
 
     return status
 
+# step 4
 def getJobResults(jobId):
-    # step 4
     pages = []
 
     time.sleep(5)
@@ -95,12 +96,17 @@ def getJobResults(jobId):
 
 
 # Document
-
 # upload_file(pdf_file, bucket=BUCKET_NAME)
 jobId = startJob(BUCKET_NAME, "doc05857020210910103344.pdf")
 print("Started job with id: {}".format(jobId))
-if(isJobComplete(jobId)):
-    response = getJobResults(jobId)
+
+# if(isJobComplete(jobId)):  # online if case
+if(True):
+    file = open("response.json", "r") #local response 
+    response = json.load(file) #local response 
+    
+    # response = getJobResults(jobId) # online response
+
     filter(response)
     response_file = open("response.json", "w")
     # magic happens here to make it pretty-printed
