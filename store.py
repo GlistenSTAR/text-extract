@@ -1,15 +1,18 @@
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
+import simplejson
 import time    
 import re
 
 isolatie_enum = ["-", "+", "++", "+/-", "n.v.t."]
 isolatie_valuse_enum = ["Noord", "Oost", "West","Zuid", "Noordoost", "Zuidwest", "Zuidoost", "Noordwest", "Vloeren"]
 finialDic = {}
+all_blocks = []
 
 def search_bottom_filter(item, items):
+    result = ''
     x = item["Polygon"][0]["X"] + 1e-2
-    y = item["Polygon"][0]["Y"] + item["BoundingBox"]["Height"]*2
+    y = item["Polygon"][0]["Y"] + item["BoundingBox"]["Height"] * 2
     point = Point(x, y)
 
     for polygon_object in items:
@@ -31,118 +34,125 @@ def search_right_filter_enum(index, item, items):
     else:
         return ''
 
+# def search_isolatie_filter(index, blocks):
+#     blocks = blocks[index:]
+#     for items in blocks:
+#       for sub_block in items:
+    
+
 def filter(response):
-    # declear variable
-    isolatie = []
+    # declear local variable
     address1 = address2 = address3 = ''
     woningtype1 = woningtype2 = ''
 
-    # blocks = response[0]['Blocks']
     for blocks in response:
-        blocks = blocks['Blocks']
-
-        for key, item in enumerate(blocks):
-            if("Text" in item and item["BlockType"] == "LINE"): # search for only blocktype="line"
+        for item in blocks['Blocks']:
+            if("Text" in item and item["BlockType"] == "LINE"):
+                all_blocks.append(item)
                 
-                # Get date of register
-                if(item["Text"] == "Datum registratie" and ("Datum_registratie" not in finialDic)):
-                    cutted_blocks = blocks[key:] # cut the array for speed
-                    finialDic["Datum_registratie"] = search_bottom_filter(item["Geometry"], cutted_blocks)
-                    continue
+    for key, item in enumerate(all_blocks):
+        # Get date of register
+        if(item["Text"] == "Datum registratie" and ("Datum_registratie" not in finialDic)):
+            cutted_blocks = all_blocks[key:] # cut the array for speed
+            finialDic["Datum_registratie"] = search_bottom_filter(item["Geometry"], cutted_blocks)
+            continue
 
-                # Get class name
-                if(item["Text"] == "heeft energielabel"):
-                    finialDic["className"] = response[0]['Blocks'][key+1]["Text"]
-                    continue    
-                
-                # Get isolatie object  
-                if("Gevels" in item["Text"] and ( "gevels" not in finialDic)):
-                    finialDic["gevels"] = search_right_filter_enum(key, item, response)
-                    continue
-                if("Gevelpanelen" in item["Text"] and ( "gevelpanelen" not in finialDic )):
-                    finialDic["gevelpanelen"] = search_right_filter_enum(key, item, response)
-                    continue
-                if("Daken" in item["Text"] and ( "daken" not in finialDic )):
-                    finialDic["daken"] = search_right_filter_enum(key, item, response)
-                    continue
-                if("Vloeren" in item["Text"] and ( "vloeren" not in finialDic )):
-                    finialDic["vloeren"] = search_right_filter_enum(key, item, response)
-                    continue
-                if("Ramen" in item["Text"] and ( "ramen" not in finialDic )):
-                    finialDic["ramen"] = search_right_filter_enum(key, item, response)
-                    continue
-                if("Buitendeuren" in item["Text"] and ( "buitendeuren" not in finialDic )):
-                    finialDic["buitendeuren"] = search_right_filter_enum(key, item, response)
-                    continue
-                    
-                if("Verwarming" in item["Text"] and ( "verwarming" not in finialDic )):
-                    finialDic["verwarming"] = response[0]['Blocks'][key+1]["Text"]
-                    continue
-                if("Warm water" in item["Text"] and ( "warm_water" not in finialDic )):
-                    finialDic["warm_water"] = response[0]['Blocks'][key+1]["Text"]
-                    continue
-                if("Zonneboiler" in item["Text"] and ( "zonneboiler" not in finialDic )):
-                    finialDic["zonneboiler"] = response[0]['Blocks'][key+1]["Text"]
-                    continue
-                if("Ventilatie" in item["Text"] and ( "ventilatie" not in finialDic )):
-                    finialDic["ventilatie"] = response[0]['Blocks'][key+1]["Text"]
-                    continue
-                if("Koeling" in item["Text"] and ( "koeling" not in finialDic )):
-                    finialDic["koeling"] = response[0]['Blocks'][key+1]["Text"]
-                    continue
-                if("Zonnepanelen" in item["Text"] and ( "zonnepanelen" not in finialDic )):
-                    finialDic["zonnepanelen"] = response[0]['Blocks'][key+1]["Text"]
-                    continue
-    
-                # Get address
-                if(item["Text"] == "Adres" and address1==''):
-                    cutted_blocks = blocks[key:] # cut the array for speed
-                    address1 = search_bottom_filter(item["Geometry"], cutted_blocks)
-                    continue
+        # Get class name
+        if(item["Text"] == "heeft energielabel"):
+            finialDic["className"] = all_blocks[key+1]["Text"]
+            continue    
+        
+        # Get isolatie object  
+        if("Verwarming" in item["Text"] and ( "verwarming" not in finialDic )):
+            finialDic["verwarming"] = all_blocks[key+1]["Text"]
+            continue
+        if("Warm water" in item["Text"] and ( "warm_water" not in finialDic )):
+            finialDic["warm_water"] = all_blocks[key+1]["Text"]
+            continue
+        if("Zonneboiler" in item["Text"] and ( "zonneboiler" not in finialDic )):
+            finialDic["zonneboiler"] = all_blocks[key+1]["Text"]
+            continue
+        if("Ventilatie" in item["Text"] and ( "ventilatie" not in finialDic )):
+            finialDic["ventilatie"] = all_blocks[key+1]["Text"]
+            continue
+        if("Koeling" in item["Text"] and ( "koeling" not in finialDic )):
+            finialDic["koeling"] = all_blocks[key+1]["Text"]
+            continue
+        if("Zonnepanelen" in item["Text"] and ( "zonnepanelen" not in finialDic )):
+            finialDic["zonnepanelen"] = all_blocks[key+1]["Text"]
+            continue
 
-                if(address1!='' and address2=='' and item["Text"] == address1):
-                    cutted_blocks = blocks[key:] # cut the array for speed
-                    address2 = search_bottom_filter(item["Geometry"], cutted_blocks)
-                    continue
+        # Get address
+        if(item["Text"] == "Adres" and address1==''):
+            cutted_blocks = all_blocks[key:] # cut the array for speed
+            address1 = search_bottom_filter(item["Geometry"], cutted_blocks)
+            continue
 
-                if(address2!='' and address3=='' and item["Text"] == address2):
-                    cutted_blocks = blocks[key:] # cut the array for speed
-                    address3 = search_bottom_filter(item["Geometry"], cutted_blocks)
-                    continue
-                
-                finialDic["address"] = address1 + " / " + address2 + " / " + address3
+        if(address1 != '' and address2 == '' and item["Text"] == address1):
+            cutted_blocks = all_blocks[key:] # cut the array for speed
+            address2 = search_bottom_filter(item["Geometry"], cutted_blocks)
+            continue
 
-                # Get Deíailaanduiding
-                if("Bouwjaar" in item["Text"] and ( "bouwjaar" not in finialDic )):
-                    finialDic["bouwjaar"] = response[0]['Blocks'][key+1]["Text"]
-                    continue
-                if("Compactheid" in item["Text"] and ( "compactheid" not in finialDic )):
-                    finialDic["compactheid"] = response[0]['Blocks'][key+1]["Text"]
-                    continue
-                if("Vloeroppervlakte" in item["Text"] and ( "vloeroppervlakte" not in finialDic )):
-                    finialDic["vloeroppervlakte"] = item["Text"].split(' ', 1)[1]
-                    continue
+        if(address2 != '' and address3 == '' and item["Text"] == address2):
+            cutted_blocks = all_blocks[key:] # cut the array for speed
+            address3 = search_bottom_filter(item["Geometry"], cutted_blocks)
+            continue
+        
+        finialDic["address"] = address1 + " / " + address2 + " / " + address3
 
-                # Get Woningtype
-                if(item["Text"] == "Woningtype" and woningtype1==''):
-                    cutted_blocks = blocks[key:] # cut the array for speed
-                    woningtype1 = search_bottom_filter(item["Geometry"], cutted_blocks)
-                    continue
-                if(woningtype1!='' and woningtype2=='' and item["Text"] == woningtype1):
-                    cutted_blocks = blocks[key:] # cut the array for speed
-                    woningtype2 = search_bottom_filter(item["Geometry"], cutted_blocks)
-                    continue
+        # Get Deíailaanduiding
+        if("Bouwjaar" in item["Text"] and ( "bouwjaar" not in finialDic )):
+            finialDic["bouwjaar"] = all_blocks[key+1]["Text"]
+            continue
+        if("Compactheid" in item["Text"] and ( "compactheid" not in finialDic )):
+            finialDic["compactheid"] = all_blocks[key+1]["Text"]
+            continue
+        if("Vloeroppervlakte" in item["Text"] and ( "vloeroppervlakte" not in finialDic )):
+            finialDic["vloeroppervlakte"] = item["Text"].split(' ', 1)[1]
+            continue
 
-                finialDic["woningtype"] = woningtype1 + " / " + woningtype2
+        # Get Woningtype
+        if(item["Text"] == "Woningtype" and woningtype1==''):
+            cutted_blocks = all_blocks[key:] # cut the array for speed
+            woningtype1 = search_bottom_filter(item["Geometry"], cutted_blocks)
+            continue
+        if(woningtype1!='' and woningtype2=='' and item["Text"] == woningtype1):
+            cutted_blocks = all_blocks[key:] # cut the array for speed
+            woningtype2 = search_bottom_filter(item["Geometry"], cutted_blocks)
+            continue
 
-                # Get power energy
-                if("kWh/m² per jaar" in item["Text"] and ( "energy" not in finialDic )):
-                    finialDic["energy"] = item["Text"]
-                    continue
+        finialDic["woningtype"] = woningtype1 + " / " + woningtype2
 
-                # GEt Isolatie each values
-                # if(item["Text"] == "Isolatie")
+        # Get power energy
+        if("kWh/m² per jaar" in item["Text"] and ( "energy" not in finialDic )):
+            finialDic["energy"] = item["Text"]
+            continue
 
+        # # GEt Isolatie each values
+        # if(item["Text"] == "Isolatie"):
+        #     isolatie_start_pos = [index, key]
+        #     continue
+        # if(item["Text"] == "Gevels"):
+        #     gevels_start_pos = [index, key]
+        #     continue
+        # if(item["Text"] == "Daken"):
+        #     daken_start_pos = [index, key]
+        #     continue
+        # if(item["Text"] == "Vloeren"):
+        #     vloeren_start_pos = [index, key]
+        #     continue
+        # if(item["Text"] == "Buitendeuren"):
+        #     buitendeuren_start_pos = [index, key]
+        #     continue
+        # if(item["Text"] == "Verwarming"):
+        #     verwarming_start_pos = [index, key]
+        #     continue
+        # if(item["Text"] == "Warm water"):
+        #     warmwater_start_pos = [index, key]
+        #     continue
+        # if(item["Text"] == "Zonneboiler"):
+        #     zonneboiler_start_pos = [index, key]
+        #     continue
 
     print(finialDic)
 
