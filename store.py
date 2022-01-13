@@ -77,5 +77,24 @@ def filter(response):
                     Buitendeuren = search_right_filter_enum(key, item, response)
                     continue
                     
+                if("Verwarming" in item["Text"] and Verwarming==''):
+                    Verwarming = response[0]['Blocks'][key+1]["Text"]
+                    continue
+                if("Warm water" in item["Text"] and Warm_water==''):
+                    Warm_water = response[0]['Blocks'][key+1]["Text"]
+                    continue
+                if("Zonneboiler" in item["Text"] and Zonneboiler==''):
+                    Zonneboiler = response[0]['Blocks'][key+1]["Text"]
+                    continue
+                if("Ventilatie" in item["Text"] and Ventilatie==''):
+                    Ventilatie = response[0]['Blocks'][key+1]["Text"]
+                    continue
+                if("Koeling" in item["Text"] and Koeling==''):
+                    Koeling = response[0]['Blocks'][key+1]["Text"]
+                    continue
+                if("Zonnepanelen" in item["Text"] and Zonnepanelen==''):
+                    Zonnepanelen = response[0]['Blocks'][key+1]["Text"]
+                    continue
+    
                 
 
