@@ -6,23 +6,21 @@ import re
 isolatie_enum = ["-", "+", "++", "+/-", "n.v.t."]
 
 def search_bottom_filter(item, items):
-    # print("Bottom search function")
     x = item["Polygon"][0]["X"] + 1e-2
-    y = item["Polygon"][0]["Y"] + item["BoundingBox"]["Height"]*1.5
+    y = item["Polygon"][0]["Y"] + item["BoundingBox"]["Height"]*2
     point = Point(x, y)
-    result = []
 
     for polygon_object in items:
-        # check contain point on ploygon
-        ploygon = []
-        for points in polygon_object["Geometry"]["Polygon"]:
-            ploygon.append((points["X"], points["Y"]))
-        temp = Polygon(ploygon)
-        if(temp.contains(point)):
-          if "Text" in polygon_object:
-           result.append(polygon_object["Text"])
-    
-    return result[0]
+        if(polygon_object["BlockType"] == "LINE"):
+            # check contain point on ploygon
+            ploygon = []
+            for points in polygon_object["Geometry"]["Polygon"]:
+                ploygon.append((points["X"], points["Y"]))
+            temp = Polygon(ploygon)
+            if(temp.contains(point)):
+                if "Text" in polygon_object:
+                    result = polygon_object["Text"]
+    return result
 
 # get the right field on isolatie case of enum
 def search_right_filter_enum(index, item, items):
@@ -31,53 +29,53 @@ def search_right_filter_enum(index, item, items):
     else:
         return ''
 
-
 def filter(response):
-    Gevels = Gevelpanelen = Daken = Vloeren = Ramen = Buitendeuren = ''
-    blocks = response[0]['Blocks']
-    key = -1
+    # declear variable
+    Datum_registratie = ClassName = Gevels = Gevelpanelen = Daken = Vloeren = Ramen = Buitendeuren = ''
+    Verwarming = Warm_water = Zonneboiler = Ventilatie = Koeling = Zonnepanelen = ''
+    address = address1 = address2 = address3 = ''
+    Bouwjaar = Compactheid = Vloeroppervlakte = ''
+    woningtype = woningtype1 = woningtype2 = ''
 
-    for item in blocks:
-        key = key+1
-        if "Text" in item:
-            if(item["Text"] == "Datum registratie"):
-                # get data register
-                cutted_blocks = blocks[key:] # cut the array for speed
-                Datum_registratie = search_bottom_filter(item["Geometry"], cutted_blocks)
-            if(item["Text"] == "heeft energielabel"):
-                # get Class name
-                ClassName = response[0]['Blocks'][key+1]["Text"]
+    # blocks = response[0]['Blocks']
+    for blocks in response:
+        blocks = blocks['Blocks']
+        key = -1
 
-            # get isolatie object  
-            if(item["Text"] == "Gevels"):
-                Gevels = search_right_filter_enum(key, item, response)
-            if(item["Text"] == "Gevelpanelen"):
-                Gevelpanelen = search_right_filter_enum(key, item, response)
-            if(item["Text"] == "Daken"):
-                Daken = search_right_filter_enum(key, item, response)
-            if(item["Text"] == "Vloeren"):
-                Vloeren = search_right_filter_enum(key, item, response)
-            if(item["Text"] == "Ramen"):
-                Ramen = search_right_filter_enum(key, item, response)
-            if(item["Text"] == "Buitendeuren"):
-                Buitendeuren = search_right_filter_enum(key, item, response)
+        for item in blocks:
+            key = key+1
+            if("Text" in item and item["BlockType"] == "LINE"): # search for only blocktype="line"
+                
+                # Get date of register
+                if(item["Text"] == "Datum registratie" and Datum_registratie == ''):
+                    cutted_blocks = blocks[key:] # cut the array for speed
+                    Datum_registratie = search_bottom_filter(item["Geometry"], cutted_blocks)
+                    continue
 
-            if(item["Text"] == "Verwarming"):
-                Verwarming = response[0]['Blocks'][key+1]["Text"]
-            if(item["Text"] == "Warm water"):
-                Warm_water = response[0]['Blocks'][key+1]["Text"]
-            if(item["Text"] == "Zonneboiler"):
-                Zonneboiler = response[0]['Blocks'][key+1]["Text"]
-            if(item["Text"] == "Ventilatie"):
-                Ventilatie = response[0]['Blocks'][key+1]["Text"]
-            if(item["Text"] == "Koeling"):
-                Koeling = response[0]['Blocks'][key+1]["Text"]
-            if(item["Text"] == "Zonnepanelen"):
-                Zonnepanelen = response[0]['Blocks'][key+1]["Text"]
-        
-    # print(Verwarming, Warm_water, Zonneboiler, Ventilatie, Koeling, Zonnepanelen)
-            
+                # Get class name
+                if(item["Text"] == "heeft energielabel"):
+                    ClassName = response[0]['Blocks'][key+1]["Text"]
+                    continue    
+                
+                # Get isolatie object  
+                if("Gevels" in item["Text"] and Gevels==''):
+                    Gevels = search_right_filter_enum(key, item, response)
+                    continue
+                if("Gevelpanelen" in item["Text"] and Gevelpanelen==''):
+                    Gevelpanelen = search_right_filter_enum(key, item, response)
+                    continue
+                if("Daken" in item["Text"] and Daken==''):
+                    Daken = search_right_filter_enum(key, item, response)
+                    continue
+                if("Vloeren" in item["Text"] and Vloeren==''):
+                    Vloeren = search_right_filter_enum(key, item, response)
+                    continue
+                if("Ramen" in item["Text"] and Ramen==''):
+                    Ramen = search_right_filter_enum(key, item, response)
+                    continue
+                if("Buitendeuren" in item["Text"] and Buitendeuren==''):
+                    Buitendeuren = search_right_filter_enum(key, item, response)
+                    continue
+                    
+                
 
-
-            
-       
