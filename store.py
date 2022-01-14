@@ -186,7 +186,8 @@ def filter(response):
     
     # Get Isolatie object
     isolatie["gevels"] =  {}
-    # isolatie["gevelpanelen"] = {}
+    isolatie["gevelpanelen"] = {}
+    isolatie["daken"] = {}
     
     for key, data in enumerate(key_positions):                                              # Loop the positions
         if key < len(key_positions) - 1:                                                    # until length-1
@@ -213,28 +214,45 @@ def filter(response):
                                     break
                             
                             
-                    # if(all_blocks[key_positions[key]]["Text"] == "2 Gevelpanelen"):         # 1 Gevelpanelen
-                    #     isolatie["gevelpanelen"][all_blocks[index_range+1]["Text"]] = []   
-                    #     first_obj, first_obj_index = search_bottom_filter(all_blocks[index_range+1], all_blocks, "obj", "lg")
-                    #     if(first_obj):
-                    #         opp = first_obj["Text"]
-                    #         U = all_blocks[first_obj_index+1]["Text"]
-                    #         isolatie["gevelpanelen"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "U" : Rc})
-                    #         # Continue if more values
-                    #         while len(first_obj) > 0:
-                    #             first_obj, first_obj_index = search_bottom_filter(first_obj, all_blocks, "obj", "sm")
-                    #             if(first_obj):
-                    #                 if("m²" in first_obj["Text"]):
-                    #                     opp = first_obj["Text"]
-                    #                     U = all_blocks[first_obj_index+1]["Text"]
-                    #                     isolatie["gevelpanelen"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "U" : Rc})
-                    #                 else:
-                    #                     break
-                    #             else:
-                    #                 break            
+                    if(all_blocks[key_positions[key]]["Text"] == "2 Gevelpanelen"):         # 1 Gevelpanelen
+                        isolatie["gevelpanelen"][all_blocks[index_range+1]["Text"]] = []   
+                        first_obj, first_obj_index = search_bottom_filter(all_blocks[index_range+1], all_blocks, "obj", "lg")
+                        if(first_obj):
+                            opp = first_obj["Text"]
+                            U = all_blocks[first_obj_index+1]["Text"]
+                            isolatie["gevelpanelen"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "U" : U})
+                            # Continue if more values
+                            while len(first_obj) > 0:
+                                first_obj, first_obj_index = search_bottom_filter(first_obj, all_blocks, "obj", "sm")
+                                if(first_obj):
+                                    if("m²" in first_obj["Text"]):
+                                        opp = first_obj["Text"]
+                                        U = all_blocks[first_obj_index+1]["Text"]
+                                        isolatie["gevelpanelen"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "U" : U})
+                                    else:
+                                        break
+                                else:
+                                    break            
                     
-                    # if(all_blocks[key_positions[key]]["Text"] == "3 Daken"):                # 1 Daken
-                    #     print("Daken")
+                    if(all_blocks[key_positions[key]]["Text"] == "3 Daken"):                # 1 Daken
+                        isolatie["daken"][all_blocks[index_range+1]["Text"]] = []   
+                        first_obj, first_obj_index = search_bottom_filter(all_blocks[index_range+1], all_blocks, "obj", "lg")
+                        if(first_obj):
+                            opp = first_obj["Text"]
+                            Rc = all_blocks[first_obj_index+1]["Text"]
+                            isolatie["daken"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "Rc" : Rc})
+                            # Continue if more values
+                            while len(first_obj) > 0:
+                                first_obj, first_obj_index = search_bottom_filter(first_obj, all_blocks, "obj", "sm")
+                                if(first_obj):
+                                    if("m²" in first_obj["Text"]):
+                                        opp = first_obj["Text"]
+                                        Rc = all_blocks[first_obj_index+1]["Text"]
+                                        isolatie["daken"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "Rc" : Rc})
+                                    else:
+                                        break
+                                else:
+                                    break  
                         
                     # if(all_blocks[key_positions[key]]["Text"] == "4 Vloeren"):              # 1 Vloeren
                     #     print("Vloeren")         
