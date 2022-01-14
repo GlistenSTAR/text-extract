@@ -5,27 +5,37 @@ import time
 import re
 
 isolatie_enum = ["-", "+", "++", "+/-", "n.v.t."]
-isolatie_valuse_enum = ["Noord", "Oost", "West","Zuid", "Noordoost", "Zuidwest", "Zuidoost", "Noordwest", "Vloeren"]
+isolatie_valuse_enum = ["Noord", "Oost", "West","Zuid", "Noordoost", "Zuidwest", "Zuidoost", "Noordwest", "Vloeren", "Horizontaal"]
 finialDic = isolatie = {}
 all_blocks = []
 key_positions = []
+isolatie = {}
+isolatie["gevels"] =  {}
+isolatie["gevelpanelen"] = {}
+isolatie["daken"] = {}
+isolatie["vloeren"] = {}
+isolatie["ramen"] = {}
+isolatie["buitendeuren"] = {}
+isolatie["verwarming"] = {}
 
 # Get bottom Object
-def search_bottom_filter(item, items, method, size): # return ite,
+def search_bottom_filter(item, items, method, size): # return item,
     result = ''
     if(size=="lg"):
         x = item['Geometry']["Polygon"][0]["X"] + 1e-3
         if(item["Text"] == "West"):
             x = item['Geometry']["Polygon"][0]["X"] + 1e-2
-        else:
-            x = item['Geometry']["Polygon"][0]["X"] + 1e-3
         y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 5
     elif(size=="lg"):
         x = item['Geometry']["Polygon"][0]["X"] + 1e-3
         y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 2
+    elif(size=="md"):
+        x = item['Geometry']["Polygon"][0]["X"] + 1e-3
+        y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 3
     else:
         x = item['Geometry']["Polygon"][0]["X"] + 1e-2
         y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 2
+        
     point = Point(x, y)
     for key, polygon_object in enumerate(items) :
         ploygon = []
@@ -45,11 +55,35 @@ def search_bottom_filter(item, items, method, size): # return ite,
     else:
         return result
 
+def get_each_object(key, all_blocks, index_range, first_param, second_param):
+    isolatie[key][all_blocks[index_range+1]["Text"]] = []   
+    first_obj, first_obj_index = search_bottom_filter(all_blocks[index_range+1], all_blocks, "obj", "lg")
+    if(first_obj):
+        first = first_obj["Text"]
+        second = all_blocks[first_obj_index+1]["Text"]
+        isolatie[key][all_blocks[index_range+1]["Text"]].append({first_param : first, second_param : second})
+        # Continue if more values
+        while len(first_obj) > 0:
+            first_obj, first_obj_index = search_bottom_filter(first_obj, all_blocks, "obj", "sm")
+            if(first_obj):
+                if("m²" in first_obj["Text"]):
+                    first = first_obj["Text"]
+                    second = all_blocks[first_obj_index+1]["Text"]
+                    isolatie[key][all_blocks[index_range+1]["Text"]].append({first_param : first, second_param : second})
+                else:
+                    break
+            else:
+                break   
+
+def get_each_object_letter(key1, key2, all_blocks, index_range):
+    if(all_blocks[index_range]["Text"] == key2):
+        isolatie[key1][key2] = search_bottom_filter(all_blocks[index_range], all_blocks, "", "md")
+        isolatie[key1][all_blocks[index_range+1]["Text"]] = search_bottom_filter(all_blocks[index_range+1], all_blocks, "", "md")
+
 def filter(response):
     # declear local variable
     address1 = address2 = address3 = ''
     woningtype1 = woningtype2 = ''
-    isolatie = {}
 
     for blocks in response:
         for item in blocks['Blocks']:
@@ -185,105 +219,49 @@ def filter(response):
             break
     
     # Get Isolatie object
-    isolatie["gevels"] =  {}
-    isolatie["gevelpanelen"] = {}
-    isolatie["daken"] = {}
-    
     for key, data in enumerate(key_positions):                                              # Loop the positions
         if key < len(key_positions) - 1:                                                    # until length-1
             for index_range in range(key_positions[key],  key_positions[key + 1]):          # for example 1. Gevels ~ 2.Gevelpanelen 's indexs
                 if(all_blocks[index_range+1]["Text"] in isolatie_valuse_enum):
                     if(all_blocks[key_positions[key]]["Text"] == "1 Gevels"):               # 1 Gevels
-                        isolatie["gevels"][all_blocks[index_range+1]["Text"]] = []   
-                        first_obj, first_obj_index = search_bottom_filter(all_blocks[index_range+1], all_blocks, "obj", "lg")
-                        if(first_obj):
-                            opp = first_obj["Text"]
-                            Rc = all_blocks[first_obj_index+1]["Text"]
-                            isolatie["gevels"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "Rc" : Rc})
-                            # Continue if more values
-                            while len(first_obj) > 0:
-                                first_obj, first_obj_index = search_bottom_filter(first_obj, all_blocks, "obj", "sm")
-                                if(first_obj):
-                                    if("m²" in first_obj["Text"]):
-                                        opp = first_obj["Text"]
-                                        Rc = all_blocks[first_obj_index+1]["Text"]
-                                        isolatie["gevels"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "Rc" : Rc})
-                                    else:
-                                        break
-                                else:
-                                    break
-                            
-                            
+                        get_each_object("gevels", all_blocks, index_range, "Opp", "Rc")            
+                                                        
                     if(all_blocks[key_positions[key]]["Text"] == "2 Gevelpanelen"):         # 1 Gevelpanelen
-                        isolatie["gevelpanelen"][all_blocks[index_range+1]["Text"]] = []   
-                        first_obj, first_obj_index = search_bottom_filter(all_blocks[index_range+1], all_blocks, "obj", "lg")
-                        if(first_obj):
-                            opp = first_obj["Text"]
-                            U = all_blocks[first_obj_index+1]["Text"]
-                            isolatie["gevelpanelen"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "U" : U})
-                            # Continue if more values
-                            while len(first_obj) > 0:
-                                first_obj, first_obj_index = search_bottom_filter(first_obj, all_blocks, "obj", "sm")
-                                if(first_obj):
-                                    if("m²" in first_obj["Text"]):
-                                        opp = first_obj["Text"]
-                                        U = all_blocks[first_obj_index+1]["Text"]
-                                        isolatie["gevelpanelen"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "U" : U})
-                                    else:
-                                        break
-                                else:
-                                    break            
+                        get_each_object("gevelpanelen", all_blocks, index_range, "Opp", "U")            
                     
                     if(all_blocks[key_positions[key]]["Text"] == "3 Daken"):                # 1 Daken
-                        isolatie["daken"][all_blocks[index_range+1]["Text"]] = []   
-                        first_obj, first_obj_index = search_bottom_filter(all_blocks[index_range+1], all_blocks, "obj", "lg")
-                        if(first_obj):
-                            opp = first_obj["Text"]
-                            Rc = all_blocks[first_obj_index+1]["Text"]
-                            isolatie["daken"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "Rc" : Rc})
-                            # Continue if more values
-                            while len(first_obj) > 0:
-                                first_obj, first_obj_index = search_bottom_filter(first_obj, all_blocks, "obj", "sm")
-                                if(first_obj):
-                                    if("m²" in first_obj["Text"]):
-                                        opp = first_obj["Text"]
-                                        Rc = all_blocks[first_obj_index+1]["Text"]
-                                        isolatie["daken"][all_blocks[index_range+1]["Text"]].append({"Opp" : opp, "Rc" : Rc})
-                                    else:
-                                        break
-                                else:
-                                    break  
+                        get_each_object("daken", all_blocks, index_range, "Opp", "Rc")            
                         
-                    # if(all_blocks[key_positions[key]]["Text"] == "4 Vloeren"):              # 1 Vloeren
-                    #     print("Vloeren")         
+                    if(all_blocks[key_positions[key]]["Text"] == "4 Vloeren"):              # 1 Vloeren
+                        get_each_object("vloeren", all_blocks, index_range, "Opp", "Rc")            
                     
-                    # if(all_blocks[key_positions[key]]["Text"] == "5 Ramen"):                # 1 Ramen
-                    #     print("Ramen")            
+                    if(all_blocks[key_positions[key]]["Text"] == "5 Ramen"):                # 1 Ramen
+                        get_each_object("ramen", all_blocks, index_range, "Opp", "Uw")            
                     
-                    # if(all_blocks[key_positions[key]]["Text"] == "6 Buitendeuren"):         # 1 Buitendeuren
-                    #     print("Buitendeuren")         
+                    if(all_blocks[key_positions[key]]["Text"] == "6 Buitendeuren"):         # 1 Buitendeuren
+                        get_each_object("buitendeuren", all_blocks, index_range, "Opp", "Ud")            
                         
-                    # if(all_blocks[key_positions[key]]["Text"] == "7 Verwarming"):           # 1 Verwarming
-                    #     print("Verwarming")         
+                if(all_blocks[key_positions[key]]["Text"] == "7 Verwarming"):           # 1 Verwarming
+                    get_each_object_letter("verwarming", "Verwarmingstoestellen", all_blocks, index_range)
                     
-                    # if(all_blocks[key_positions[key]]["Text"] == "8 Warm water"):           # 1 Warm water
-                    #     print("Warm water")            
+                # if(all_blocks[key_positions[key]]["Text"] == "8 Warm water"):           # 1 Warm water
+                #     print("Warm water")            
+                
+                # if(all_blocks[key_positions[key]]["Text"] == "9 Zonneboiler"):          # 1 Zonneboiler
+                #     print("Zonneboiler")         
                     
-                    # if(all_blocks[key_positions[key]]["Text"] == "9 Zonneboiler"):          # 1 Zonneboiler
-                    #     print("Zonneboiler")         
-                        
-                    # if(all_blocks[key_positions[key]]["Text"] == "10 Ventilatie"):          # 1 Ventilatie
-                    #     print("Ventilatie")         
-                    
-                    # if(all_blocks[key_positions[key]]["Text"] == "11 Koeling"):             # 1 Koeling
-                    #     print("Koeling")            
-                    
-                    # if(all_blocks[key_positions[key]]["Text"] == "12 Zonnepanelen"):        # 1 Zonnepanelen
-                    #     print("Zonnepanelen")         
+                # if(all_blocks[key_positions[key]]["Text"] == "10 Ventilatie"):          # 1 Ventilatie
+                #     print("Ventilatie")         
+                
+                # if(all_blocks[key_positions[key]]["Text"] == "11 Koeling"):             # 1 Koeling
+                #     print("Koeling")            
+                
+                # if(all_blocks[key_positions[key]]["Text"] == "12 Zonnepanelen"):        # 1 Zonnepanelen
+                #     print("Zonnepanelen")         
                         
                             
     print(isolatie)
-    print(">>>>>\n")
+    # print(">>>>>\n")
     # print(finialDic)
                 
                     

@@ -108,8 +108,8 @@ if(True):
     # response = getJobResults(jobId) # online response
 
     filter(response)
-    response_file = open("response.json", "w")
-    # magic happens here to make it pretty-printed
-    response_file.write(simplejson.dumps(response, indent=4, sort_keys=True))
-    response_file.close()
+    # response_file = open("response.json", "w")
+    # # magic happens here to make it pretty-printed
+    # response_file.write(simplejson.dumps(response, indent=4, sort_keys=True))
+    # response_file.close()
     
