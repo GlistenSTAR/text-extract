@@ -97,8 +97,8 @@ def getJobResults(jobId):
 
 # Document
 # upload_file(pdf_file, bucket=BUCKET_NAME)
-jobId = startJob(BUCKET_NAME, "doc05857020210910103344.pdf")
-print("Started job with id: {}".format(jobId))
+# jobId = startJob(BUCKET_NAME, "doc05857020210910103344.pdf")
+# print("Started job with id: {}".format(jobId))
 
 # if(isJobComplete(jobId)):  # online if case
 if(True):
