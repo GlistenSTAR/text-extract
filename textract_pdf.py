@@ -96,16 +96,16 @@ def getJobResults(jobId):
 
 
 # Document
-# upload_file(pdf_file, bucket=BUCKET_NAME)
-# jobId = startJob(BUCKET_NAME, "Energielabel_7316JV_39.pdf")
-# print("Started job with id: {}".format(jobId))
+upload_file(pdf_file, bucket=BUCKET_NAME)
+jobId = startJob(BUCKET_NAME, "Energielabel_7316JV_39.pdf")
+print("Started job with id: {}".format(jobId))
 
-# if(isJobComplete(jobId)):  # online if case
-if(True):
-    file = open("response.json", "r") #local response 
-    response = json.load(file) #local response 
+if(isJobComplete(jobId)):  # online if case
+# if(True):
+    # file = open("response.json", "r") #local response 
+    # response = json.load(file) #local response 
     
-    # response = getJobResults(jobId) # online response
+    response = getJobResults(jobId) # online response
 
     result = filter(response)
     response_file = open("result.json", "w")
