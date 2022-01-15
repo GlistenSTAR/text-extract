@@ -9,7 +9,7 @@ from botocore.exceptions import ClientError
 from env import aws_access_key_id, aws_secret_access_key
 from store import filter
 
-pdf_file = "docs/doc05857020210910103344.pdf"
+pdf_file = "docs/Energielabel_7316JV_39.pdf"
 
 BUCKET_NAME = "pdf-textract-bucket"
 REGION_NAME = "us-west-1"
@@ -97,7 +97,7 @@ def getJobResults(jobId):
 
 # Document
 # upload_file(pdf_file, bucket=BUCKET_NAME)
-# jobId = startJob(BUCKET_NAME, "doc05857020210910103344.pdf")
+# jobId = startJob(BUCKET_NAME, "Energielabel_7316JV_39.pdf")
 # print("Started job with id: {}".format(jobId))
 
 # if(isJobComplete(jobId)):  # online if case
@@ -107,9 +107,9 @@ if(True):
     
     # response = getJobResults(jobId) # online response
 
-    filter(response)
-    # response_file = open("response.json", "w")
-    # # magic happens here to make it pretty-printed
-    # response_file.write(simplejson.dumps(response, indent=4, sort_keys=True))
-    # response_file.close()
+    result = filter(response)
+    response_file = open("result.json", "w")
+    # magic happens here to make it pretty-printed
+    response_file.write(simplejson.dumps(result, indent=4, sort_keys=True))
+    response_file.close()
     
