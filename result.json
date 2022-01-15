@@ -1,16 +1,142 @@
 {
-    "Adres": "Kopdammerdijk 11 / 1843KA Grootschermer / BAG-ID: 0458010000010717",
-    "Bouwjaar": "1968",
-    "Class": "C",
-    "Compactheid": "0,97",
-    "Datum registratie": "08-07-2021",
-    "Energy": "193,84 kWh/m\u00b2 per jaar",
-    "Koeling": "Heeft uw woning een mechanisch koelsysteem, dan staat dit vermeld in het overzicht hieronder.",
-    "Ventilatie": "Een andere manier om energiezuiniger te ventileren, is door een ventilatiesysteem met warmte-",
-    "Verwarming": "Warmtenet",
-    "Vloeroppervlakte": "224 m\u00b2",
-    "Warm water": "De meeste woningen hebben \u00e9\u00e9n warmwatertoestel. Soms is er sprake van meerdere verschillende",
-    "Woningtype": "Vrijstaande woning / ",
+    "Adres": "Balmerstraat 39 7316JV Apeldoorn BAG-ID: 0200010000018517",
+    "Bouwjaar": "1965",
+    "Class": "B",
+    "Compactheid": "1,47",
+    "Datum registratie": "28-06-2021",
+    "Energy": "178,16 kWh/m\u00b2 per jaar",
+    "Isolatie": {
+        "Buitendeuren": {
+            "Noord": [
+                {
+                    "Opp": "2,3 m\u00b2",
+                    "Ud": "3,4"
+                }
+            ],
+            "Zuid": [
+                {
+                    "Opp": "1,3 m\u00b2",
+                    "Ud": "3,4"
+                }
+            ]
+        },
+        "Daken": {
+            "Noord": [
+                {
+                    "Opp": "29,9 m\u00b2",
+                    "Rc": "2"
+                }
+            ],
+            "Zuid": [
+                {
+                    "Opp": "29,9 m\u00b2",
+                    "Rc": "2"
+                }
+            ]
+        },
+        "Gevelpanelen": {},
+        "Gevels": {
+            "Noord": [
+                {
+                    "Opp": "19,3 m\u00b2",
+                    "Rc": "1,69"
+                }
+            ],
+            "Zuid": [
+                {
+                    "Opp": "21,7 m\u00b2",
+                    "Rc": "1,69"
+                }
+            ]
+        },
+        "Koeling": {
+            "Aangesloten oppervlakte": "n.v.t.",
+            "Koeltoestellen": "Geen koeling"
+        },
+        "Ramen": {
+            "Noord": [
+                {
+                    "Opp": "3,3 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "2,4 m\u00b2",
+                    "Uw": "2"
+                },
+                {
+                    "Opp": "2 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "1,2 m\u00b2",
+                    "Uw": "2"
+                },
+                {
+                    "Opp": "0,9 m\u00b2",
+                    "Uw": "2"
+                }
+            ],
+            "Zuid": [
+                {
+                    "Opp": "4,2 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "1,2 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "0,9 m\u00b2",
+                    "Uw": "2"
+                },
+                {
+                    "Opp": "0,7 m\u00b2",
+                    "Uw": "2"
+                },
+                {
+                    "Opp": "0,7 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "0,7 m\u00b2",
+                    "Uw": "1,8"
+                }
+            ]
+        },
+        "Ventilatie": {
+            "Aangesloten Oppervlakte": "109,8 m\u00b2",
+            "Type ventilatiesysteem": "Natuurlijke ventilatie met raampjes en roosters",
+            "Warmteterugwinning": "Nee",
+            "Wisselstroomventilator": "Nee"
+        },
+        "Verwarming": {
+            "Aangesloten opp.": "109,8 m\u00b2",
+            "Verwarmingstoestellen": "HR-107 ketel"
+        },
+        "Vloeren": {
+            "Vloeren": [
+                {
+                    "Opp": "54,9 m\u00b2",
+                    "Rc": "1,8"
+                }
+            ]
+        },
+        "Warm water": {
+            "Douche met warmteterugwinning": "Niet aanwezig",
+            "Warmwatertoestellen": "Overig warm water toestel"
+        },
+        "Zonnepanelen": {
+            "Oppervlakte": "n.v.t.",
+            "Ori\u00ebntatie": "n.v.t.",
+            "Wattpiekvermogen": "geen zonnepanelen"
+        }
+    },
+    "Koeling": "Niet aanwezig",
+    "Ventilatie": "Natuurlijke ventilatie via ramen en/of roosters",
+    "Verwarming": "HR-107 ketel",
+    "Vloeroppervlakte": "110 m\u00b2",
+    "Warm water": "Overig warm water toestel",
+    "Woningtype": "Tussenwoning",
     "Zonneboiler": "Niet aanwezig",
-    "Zonnepanelen": "In het overzicht hieronder staat de omvang van het zonnepanelensysteem aangegeven (uitgedrukt in de"
+    "Zonnepanelen": "Niet aanwezig"
 }
