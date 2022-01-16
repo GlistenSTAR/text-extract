@@ -1,51 +1,38 @@
 {
-    "Adres": "Balmerstraat 39 7316JV Apeldoorn BAG-ID: 0200010000018517",
-    "Bouwjaar": "1965",
-    "Class": "B",
-    "Compactheid": "1,47",
-    "Datum registratie": "28-06-2021",
-    "Energy": "178,16 kWh/m\u00b2 per jaar",
+    "Adres": "Scheepjeshof 138 3901C) Veenendaal BAG-ID: 0345010002065106",
+    "Bouwjaar": "1990",
+    "Class": "A",
+    "Compactheid": "1,19",
+    "Datum registratie": "08-07-2021",
+    "Energy": "150,80 kWh/m\u00b2 per jaar",
     "Isolatie": {
         "Buitendeuren": {
-            "Noord": [
+            "Oost": [
                 {
-                    "Opp": "2,3 m\u00b2",
-                    "Ud": "3,4"
-                }
-            ],
-            "Zuid": [
-                {
-                    "Opp": "1,3 m\u00b2",
+                    "Opp": "1,5 m\u00b2",
                     "Ud": "3,4"
                 }
             ]
         },
-        "Daken": {
-            "Noord": [
-                {
-                    "Opp": "29,9 m\u00b2",
-                    "Rc": "2"
-                }
-            ],
-            "Zuid": [
-                {
-                    "Opp": "29,9 m\u00b2",
-                    "Rc": "2"
-                }
-            ]
-        },
+        "Daken": {},
         "Gevelpanelen": {},
         "Gevels": {
             "Noord": [
                 {
-                    "Opp": "19,3 m\u00b2",
-                    "Rc": "1,69"
+                    "Opp": "2,6 m\u00b2",
+                    "Rc": "2"
                 }
             ],
-            "Zuid": [
+            "Oost": [
                 {
-                    "Opp": "21,7 m\u00b2",
-                    "Rc": "1,69"
+                    "Opp": "15,0 m\u00b2",
+                    "Rc": "2"
+                }
+            ],
+            "West": [
+                {
+                    "Opp": "20,5 m\u00b2",
+                    "Rc": "2"
                 }
             ]
         },
@@ -54,76 +41,35 @@
             "Koeltoestellen": "Geen koeling"
         },
         "Ramen": {
-            "Noord": [
+            "Oost": [
                 {
-                    "Opp": "3,3 m\u00b2",
-                    "Uw": "1,8"
-                },
-                {
-                    "Opp": "2,4 m\u00b2",
-                    "Uw": "2"
-                },
-                {
-                    "Opp": "2 m\u00b2",
-                    "Uw": "1,8"
-                },
-                {
-                    "Opp": "1,2 m\u00b2",
-                    "Uw": "2"
-                },
-                {
-                    "Opp": "0,9 m\u00b2",
-                    "Uw": "2"
+                    "Opp": "5,3 m\u00b2",
+                    "Uw": "2,9"
                 }
             ],
-            "Zuid": [
+            "West": [
                 {
-                    "Opp": "4,2 m\u00b2",
-                    "Uw": "1,8"
-                },
-                {
-                    "Opp": "1,2 m\u00b2",
-                    "Uw": "1,8"
-                },
-                {
-                    "Opp": "0,9 m\u00b2",
-                    "Uw": "2"
-                },
-                {
-                    "Opp": "0,7 m\u00b2",
-                    "Uw": "2"
-                },
-                {
-                    "Opp": "0,7 m\u00b2",
+                    "Opp": "1,7 m\u00b2",
                     "Uw": "2,9"
-                },
-                {
-                    "Opp": "0,7 m\u00b2",
-                    "Uw": "1,8"
                 }
             ]
         },
-        "Ventilatie": {
-            "Aangesloten Oppervlakte": "109,8 m\u00b2",
-            "Type ventilatiesysteem": "Natuurlijke ventilatie met raampjes en roosters",
-            "Warmteterugwinning": "Nee",
-            "Wisselstroomventilator": "Nee"
-        },
+        "Ventilatie": {},
         "Verwarming": {
-            "Aangesloten opp.": "109,8 m\u00b2",
+            "Aangesloten opp.": "96 m\u00b2",
             "Verwarmingstoestellen": "HR-107 ketel"
         },
         "Vloeren": {
             "Vloeren": [
                 {
-                    "Opp": "54,9 m\u00b2",
-                    "Rc": "1,8"
+                    "Opp": "96 m\u00b2",
+                    "Rc": "1,71"
                 }
             ]
         },
         "Warm water": {
             "Douche met warmteterugwinning": "Niet aanwezig",
-            "Warmwatertoestellen": "Overig warm water toestel"
+            "Warmwatertoestellen": "Overig warm water toeste"
         },
         "Zonnepanelen": {
             "Oppervlakte": "n.v.t.",
@@ -132,11 +78,11 @@
         }
     },
     "Koeling": "Niet aanwezig",
-    "Ventilatie": "Natuurlijke ventilatie via ramen en/of roosters",
+    "Ventilatie": "Natuurlijke toevoer met mechanische afzuiging",
     "Verwarming": "HR-107 ketel",
-    "Vloeroppervlakte": "110 m\u00b2",
+    "Vloeroppervlakte": "96m\u00b2",
     "Warm water": "Overig warm water toestel",
-    "Woningtype": "Tussenwoning",
+    "Woningtype": "Tussenwoning onderste bouwlaag",
     "Zonneboiler": "Niet aanwezig",
     "Zonnepanelen": "Niet aanwezig"
 }
