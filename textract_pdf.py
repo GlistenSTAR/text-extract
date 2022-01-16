@@ -104,22 +104,23 @@ def getJobResults(jobId):
 app = FastAPI()
 @app.post("/textract")
 async def root(file: UploadFile = File(...)):
+    print("Uploading file on server....")
     file_name = file.filename
     file_path = os.path.join(UPLOAD_DIR, file_name)
     wfile = open(file_path, "wb")
     wfile.write(file.file.read())
-        
-    print("Uploading file on server....")
-    upload_file(file_path, bucket=BUCKET_NAME, object_name=file_name)
     print("Successfully uploaded on server")
-    jobId = startJob(BUCKET_NAME, file_path)
+    
+    print("Upload the pdf on S3 bucket...")
+    upload_file(file_path, bucket=BUCKET_NAME, object_name=file_name)
+    print("Successfully uploaded on S3 bucket")
+    
+    print("PDF extracting...")
+    jobId = startJob(BUCKET_NAME, file_name)
     print("Started job with id: {}".format(jobId))
 
     if(isJobComplete(jobId)):  # online if case
-    # if(True):
         all_blocks = []
-        # file = open("response.json", "r")   #local response 
-        # response = json.load(file)          #local response 
         
         response = getJobResults(jobId)   #online response
         
@@ -138,6 +139,7 @@ async def root(file: UploadFile = File(...)):
         response_file = open("result.json", "w")
         response_file.write(simplejson.dumps(result, indent=4, sort_keys=True))     # magic happens here to make it pretty-printed
         response_file.close()
+        
         if(flag):
             return {"message": result}
         else:
