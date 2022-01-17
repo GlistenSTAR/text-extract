@@ -12,6 +12,7 @@ from env import aws_access_key_id, aws_secret_access_key
 from save_data import save_db
 from filter1 import filter1
 from filter2 import filter2
+from filter3 import filter3
 
 BUCKET_NAME = "pdf-textract-bucket"
 REGION_NAME = "us-west-1"
@@ -139,11 +140,14 @@ if(True): # local
     if(all_blocks[0]["Text"] == "Rijksoverheid"):
         result = filter2(all_blocks)
         flag = save_db(result, type="2")
+    elif(all_blocks[1]["Text"] == "Afgegeven conform de Regeling energieprestatie gebouwen."):
+        result = filter3(all_blocks)
+        flag = save_db(result, type="3")
     else:
         result = filter1(all_blocks)
         flag = save_db(result, type="1")
     
-    # print("Save the result on AWS RDS")    
+    print("Save the result on AWS RDS")    
         
     response_file = open("result.json", "w")
     response_file.write(simplejson.dumps(result, indent=4, sort_keys=True))     # magic happens here to make it pretty-printed
