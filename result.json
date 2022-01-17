@@ -1,22 +1,161 @@
 {
-    "Adres": "Graaf Willemlaan 154 3818DV (Amersfoort BAG-ID: 0307010000412456",
-    "Aparte warmtapwatervoorziening": "Geen apart toestel",
-    "Bouwperiode": "v\u00f3\u00f3r 1946",
-    "Dakisolatie": "Dak extra ge\u00efsoleerd",
-    "Datum van registratie": "17-09-2018",
-    "Energielabel": "",
-    "Gevelisolatie": "Gevel extra ge\u00efsoleerd",
-    "Glas slaapruimte": "HR glas",
-    "Glas woonruimte": "Dubbel glas",
-    "Tip": [
-        "Een zonneboiler voor het verwarmen van UW tapwater",
-        "Zonnepanelen voor het opwekken van elektriciteit",
-        "HR glas in de woonruimte(s)"
-    ],
-    "Ventilatie": "Mechanische afzuiging",
-    "Verwarming": "Individuele CV-ketel, geinstalleerd in of na 1998",
-    "Vloerisolatie": "Vloer extra ge\u00efsoleerd",
-    "Woningtype": "Rijwoning niet op een hoek",
-    "Woonoppervlakte": "101 t/m120 m\u00b2",
-    "Zonne-energie": "Geen zonnepanelen en geen zonneboiler"
+    "Adres": "Aartje de Voseiland 23 1382MK Weesp",
+    "Bag_ID": " 0457010000058952",
+    "Bouwjaar": "2012",
+    "Class": "A",
+    "Compactheid": "1,73",
+    "Datum registratie": "06-07-2021",
+    "Energy": "118,07 kWh/m\u00b2 per jaar",
+    "Isolatie": {
+        "Buitendeuren": {
+            "Noordoost": [
+                {
+                    "Opp": "2,2 m\u00b2",
+                    "Ud": "3,4"
+                },
+                {
+                    "Opp": "2,2 m\u00b2",
+                    "Ud": "2"
+                },
+                {
+                    "Opp": "1,9 m\u00b2",
+                    "Ud": "3,4"
+                }
+            ],
+            "Noordwest": [
+                {
+                    "Opp": "3,2 m\u00b2",
+                    "Ud": "3,4"
+                },
+                {
+                    "Opp": "2,9 m\u00b2",
+                    "Ud": "3,4"
+                }
+            ],
+            "Zuidoost": []
+        },
+        "Daken": {
+            "Horizontaal": [
+                {
+                    "Opp": "54,1 m\u00b2",
+                    "Rc": "2,5"
+                }
+            ]
+        },
+        "Gevelpanelen": {},
+        "Gevels": {
+            "Noordoost": [
+                {
+                    "Opp": "68,8 m\u00b2",
+                    "Rc": "2,8"
+                }
+            ],
+            "Noordwest": [
+                {
+                    "Opp": "28,0 m\u00b2",
+                    "Rc": "2,8"
+                }
+            ],
+            "Zuidoost": [
+                {
+                    "Opp": "35,9 m\u00b2",
+                    "Rc": "3,25"
+                }
+            ],
+            "Zuidwest": [
+                {
+                    "Opp": "3,3 m\u00b2",
+                    "Rc": "2,8"
+                }
+            ]
+        },
+        "Koeling": {
+            "Aangesloten oppervlakte": "n.v.t.",
+            "Koeltoestellen": "Geen koeling"
+        },
+        "Ramen": {
+            "Noordoost": [
+                {
+                    "Opp": "4,3 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "3,1 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "2,9 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "0,2 m\u00b2",
+                    "Uw": "1,8"
+                }
+            ],
+            "Noordwest": [
+                {
+                    "Opp": "4,7 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "4,4 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "4,2 m\u00b2",
+                    "Uw": "1,8"
+                }
+            ],
+            "Zuidoost": [
+                {
+                    "Opp": "3,1 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "2,9 m\u00b2",
+                    "Uw": "1,8"
+                },
+                {
+                    "Opp": "1,8 m\u00b2",
+                    "Uw": "1,8"
+                }
+            ]
+        },
+        "Ventilatie": {
+            "Aangesloten Oppervlakte": "159,0 m\u00b2",
+            "Type ventilatiesysteem": "Natuurlijke ventilatie met raampjes en roosters",
+            "Warmteterugwinning": "Nee",
+            "Wisselstroomventilator": "Nee"
+        },
+        "Verwarming": {
+            "Aangesloten opp.": "159,0 m\u00b2",
+            "Verwarmingstoestellen": "HR-107 ketel"
+        },
+        "Vloeren": {
+            "Vloeren": [
+                {
+                    "Opp": "54,1 m\u00b2",
+                    "Rc": "2,5"
+                }
+            ]
+        },
+        "Warm water": {
+            "Douche met warmteterugwinning": "Niet aanwezig",
+            "Warmwatertoestellen": "Overig warm water toestel"
+        },
+        "Zonnepanelen": {
+            "Oppervlakte": "n.v.t.",
+            "Ori\u00ebntatie": "n.v.t.",
+            "Wattpiekvermogen": "geen zonnepanelen"
+        }
+    },
+    "Koeling": "Niet aanwezig",
+    "Registratienummer": "346124025",
+    "Ventilatie": "Natuurlijke toevoer met mechanische afzuiging",
+    "Verwarming": "HR-107 ketel",
+    "Vloeroppervlakte": "159 m\u00b2",
+    "Warm water": "Overig warm water toestel",
+    "Woningtype": "Hoekwoning",
+    "Zonneboiler": "Niet aanwezig",
+    "Zonnepanelen": "Niet aanwezig"
 }
