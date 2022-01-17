@@ -47,20 +47,24 @@ def filter2(all_blocks):
                 address2 = second_obj["Text"]
             third_obj, index = get_bottom_object(second_obj, all_blocks, "obj", "lg")
             if(third_obj["Text"]):
-                address3 = third_obj["Text"]
+                finialDic["Bag_ID"] = third_obj["Text"].split(":")[-1:][0]
                 
             if(address1 == ''):
                 finialDic["Adres"] = ''
             if(address2 == ''):
                 finialDic["Adres"] = address1
-            if(address3 == ''):
-                finialDic["Adres"] = address1 + " " + address2
             else:
-                finialDic["Adres"] = address1 + " " + address2 + " " + address3
+                finialDic["Adres"] = address1 + " " + address2
+                
             continue
         
         # Get energy label
         finialDic["Energielabel"] = ''
+
+        if("Registratienummer" in all_blocks[key]["Text"] and not "Registratienummer" in finialDic):
+            registe_date = all_blocks[key]["Text"].split(" ")[-1:][0]
+            finialDic["Registratienummer"] = registe_date
+            continue
                 
         if("Datum van registratie" in all_blocks[key]["Text"] and not "Datum van registratie" in finialDic):
             registe_date = all_blocks[key]["Text"].split(" ")[-1:][0]
