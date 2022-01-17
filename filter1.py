@@ -91,6 +91,10 @@ def filter1(all_blocks):
     woningtype1 = woningtype2 = ''
                     
     for key, item in enumerate(all_blocks):
+        if(item["Text"] == "Registratienummer" and ("Registratienummer" not in finialDic)):
+            cutted_blocks = all_blocks[key:] # cut the array for speed
+            finialDic["Registratienummer"] = search_bottom_filter(item, cutted_blocks, "", "")
+            continue
         # Get date of register
         if(item["Text"] == "Datum registratie" and ("Datum_registratie" not in finialDic)):
             cutted_blocks = all_blocks[key:] # cut the array for speed
@@ -148,17 +152,15 @@ def filter1(all_blocks):
 
         if(address2 != '' and address3 == '' and item["Text"] == address2):
             cutted_blocks = all_blocks[key:] # cut the array for speed
-            address3 = search_bottom_filter(item, cutted_blocks, "", "")
+            finialDic["Bag_ID"] = search_bottom_filter(item, cutted_blocks, "", "").split(":")[-1:][0]
             continue
         
         if(not address1):
             finialDic["Adres"]=''
         if(not address2):    
             finialDic["Adres"] = address1
-        if(not address3):    
-            finialDic["Adres"] = address1 + " " + address2
         else:
-            finialDic["Adres"] = address1 + " " + address2 + " " + address3
+            finialDic["Adres"] = address1 + " " + address2
 
         # Get Deíailaanduiding
         if("Bouwjaar" in item["Text"] and ( "bouwjaar" not in finialDic )):
