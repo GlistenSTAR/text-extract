@@ -7,7 +7,7 @@ import re
 isolatie_enum = ["-", "+", "++", "+/-", "n.v.t."]
 isolatie_valuse_enum = ["Noord", "Oost", "West","Zuid", "Noordoost", "Zuidwest", "Zuidoost", "Noordwest", "Vloeren", "Horizontaal"]
 finialDic  = {}
-finialDic["Datum registratie"] = ''
+finialDic["Bag_ID"] = ''
 all_blocks = []
 key_positions = []
 isolatie = {}
@@ -30,8 +30,7 @@ def search_bottom_filter(item, items, method, size): # return item,
         x = item['Geometry']["Polygon"][0]["X"] + 2e-3
         if(item["Text"] == "West"):
             x = item['Geometry']["Polygon"][0]["X"] + 1e-2
-        else:
-            y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 5
+        y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 5
     elif(size=="md"):
         x = item['Geometry']["Polygon"][0]["X"] + 1e-2
         y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 3.15
@@ -89,34 +88,21 @@ def filter1(all_blocks):
     woningtype1 = woningtype2 = ''
                     
     for key, item in enumerate(all_blocks):
-        if(item["Text"] == "Registratienummer" and ("Registratienummer" not in finialDic)):
+        if(item["Text"] == "Registratienummer"):
             cutted_blocks = all_blocks[key:] # cut the array for speed
             finialDic["Registratienummer"] = search_bottom_filter(item, cutted_blocks, "", "")
             continue
         # Get date of register
-        if(item["Text"] == "Datum registratie" and ("Datum_registratie" not in finialDic)):
+        if(item["Text"] == "Datum registratie"):
             cutted_blocks = all_blocks[key:] # cut the array for speed
             finialDic["Datum registratie"] = search_bottom_filter(item, cutted_blocks, "", "")
             continue
-
         # Get class name
         if(item["Text"] == "heeft energielabel"):
             finialDic["Class"] = all_blocks[key+1]["Text"]
             continue    
         
         # Get isolatie object  
-        # if(item["Text"] == "Gevels"):
-        #     Gevels = search_right_filter_enum(key, item, response)
-        # if(item["Text"] == "Gevelpanelen"):
-        #     Gevelpanelen = search_right_filter_enum(key, item, response)
-        # if(item["Text"] == "Daken"):
-        #     Daken = search_right_filter_enum(key, item, response)
-        # if(item["Text"] == "Vloeren"):
-        #     Vloeren = search_right_filter_enum(key, item, response)
-        # if(item["Text"] == "Ramen"):
-        #     Ramen = search_right_filter_enum(key, item, response)
-        # if(item["Text"] == "Buitendeuren"):
-        #     Buitendeuren = search_right_filter_enum(key, item, response)
             
         if("Verwarming" in item["Text"] and ( "Verwarming" not in finialDic )):
             finialDic["Verwarming"] = all_blocks[key+1]["Text"]
@@ -303,4 +289,11 @@ def filter1(all_blocks):
                         
         finialDic["Isolatie"] = isolatie           
     
+    if(not "Registratienummer" in finialDic):
+        finialDic['Registratienummer'] = ''
+    if(not "Datum registratie" in finialDic):
+        finialDic['Datum registratie'] = ''
+    
+    # print(finialDic)
+    # time.sleep(3000)
     return finialDic        

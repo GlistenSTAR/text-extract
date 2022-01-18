@@ -147,7 +147,7 @@ if(True): # local
         result = filter1(all_blocks)
         flag = save_db(result, type="1")
     
-    print("Save the result on AWS RDS")    
+    # print("Save the result on AWS RDS")    
         
     response_file = open("result.json", "w")
     response_file.write(simplejson.dumps(result, indent=4, sort_keys=True))     # magic happens here to make it pretty-printed
