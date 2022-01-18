@@ -6,17 +6,17 @@ import re
 
 finialDic={}
 address1 = address2 = address3 = ''
+finialDic["Tip"] = []
+start_pos = end_pos = 0
 
 def get_bottom_object(item, items, method, size):
     if(size == "lg"):
         x = item['Geometry']["Polygon"][0]["X"] + 1e-2
         y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 2
-    elif(size == "xlg"):
-        x = item['Geometry']["Polygon"][0]["X"] + 1e-2
-        y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 3.5
     elif(size == "sp"):
         x = item['Geometry']["Polygon"][0]["X"] + 1e-2
         y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 3.3
+        
     point = Point(x, y)
     for key, polygon_object in enumerate(items) :
         ploygon = []
@@ -59,15 +59,23 @@ def filter2(all_blocks):
             continue
         
         # Get energy label
-        finialDic["Energielabel"] = ''
+        if("Energielabel" in all_blocks[key]["Text"] and not "Energielabel" in finialDic):
+            finialDic["Energielabel"] = all_blocks[key]["Text"].split(" ")[-1:][0]
+            if(finialDic["Energielabel"] == "Energielabel"):
+                finialDic["Energielabel"] = ''
+            continue
 
         if("Registratienummer" in all_blocks[key]["Text"] and not "Registratienummer" in finialDic):
             registe_date = all_blocks[key]["Text"].split(" ")[-1:][0]
+            if(all_blocks[key]["Text"] == "Registratienummer"):
+                registe_date = all_blocks[key+1]["Text"]
             finialDic["Registratienummer"] = registe_date
             continue
                 
         if("Datum van registratie" in all_blocks[key]["Text"] and not "Datum van registratie" in finialDic):
             registe_date = all_blocks[key]["Text"].split(" ")[-1:][0]
+            if(all_blocks[key]["Text"] == "Datum van registratie"):
+                registe_date = all_blocks[key+1]["Text"]
             finialDic["Datum van registratie"] = registe_date
             continue
         # Overzicht woningkenmerken object
@@ -108,21 +116,15 @@ def filter2(all_blocks):
             finialDic["Ventilatie"] = all_blocks[key+1]["Text"]
             continue
         
-        if(all_blocks[key]["Text"] == "Wilt u besparen op uw energierekening? Overweeg dan de volgende mogelijke maatregelen:" and not "Tip" in finialDic):
-            first_obj = all_blocks[key]
-            temp = []
-            while first_obj:
-                sp_object = first_obj
-                first_obj, index = get_bottom_object(first_obj, all_blocks, "obj", "xlg")
-                if(first_obj):
-                    temp.append(first_obj["Text"])
-                else:
-                    first_obj, index = get_bottom_object(sp_object, all_blocks, "obj", "sp")
-                    if(first_obj):
-                      temp.append(first_obj["Text"])
-                    else:
-                        break
-            finialDic["Tip"] = temp
+        if(all_blocks[key]["Text"] == "Wilt u besparen op uw energierekening? Overweeg dan de volgende mogelijke maatregelen:"):
+            start_pos = key+1
+            continue
+        if("Als de besparingsmogelijkheden HR107-ketel, HR107-combiketel" in all_blocks[key]["Text"]):
+            end_pos = key 
+            continue
+        
+    for index in range(start_pos, end_pos):
+         finialDic["Tip"].append(all_blocks[index]["Text"])
     print(finialDic)
     time.sleep(3000)        
     return finialDic        
