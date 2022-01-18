@@ -9,7 +9,7 @@ address1 = address2 = address3 = ''
 
 def get_bottom_object(item, items, method, size):
     if(size == "lg"):
-        x = item['Geometry']["Polygon"][0]["X"] + 1e-3
+        x = item['Geometry']["Polygon"][0]["X"] + 1e-2
         y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 2
     elif(size == "xlg"):
         x = item['Geometry']["Polygon"][0]["X"] + 1e-2
@@ -40,13 +40,13 @@ def filter2(all_blocks):
     for key, item in enumerate(all_blocks):
         if(all_blocks[key]["Text"] == "Energielabel woning" and not "address" in finialDic):
             first_obj, index = get_bottom_object(all_blocks[key], all_blocks, "obj", "lg")
-            if(first_obj["Text"]):
+            if(first_obj and first_obj["Text"]):
                 address1 = first_obj["Text"]
             second_obj, index = get_bottom_object(first_obj, all_blocks, "obj", "lg")
-            if(second_obj["Text"]):
+            if(second_obj and second_obj["Text"]):
                 address2 = second_obj["Text"]
-            third_obj, index = get_bottom_object(second_obj, all_blocks, "obj", "lg")
-            if(third_obj["Text"]):
+            third_obj, index = get_bottom_object(second_obj, all_blocks, "obj", "lg")   
+            if(third_obj and third_obj["Text"]):
                 finialDic["Bag_ID"] = third_obj["Text"].split(":")[-1:][0]
                 
             if(address1 == ''):
@@ -123,6 +123,7 @@ def filter2(all_blocks):
                     else:
                         break
             finialDic["Tip"] = temp
-            
+    print(finialDic)
+    time.sleep(3000)        
     return finialDic        
     
