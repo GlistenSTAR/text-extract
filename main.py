@@ -102,58 +102,57 @@ def getJobResults(jobId):
     return pages
 
 # Document
-# app = FastAPI()
-# @app.post("/textract")
-# async def root(file: UploadFile = File(...)):
+app = FastAPI()
+@app.post("/textract")
+async def root(file: UploadFile = File(...)):
+    print("Uploading file on server....")
+    file_name = file.filename
+    if(file_name.split(".")[-1:] != "pdf" or file_name.split(".")[-1:] != "PDF"):
+        print("Please upload the pdf file")
+        return {"message": "Please upload the pdf file"}
 
-# print("Uploading file on server....")
-# file_name = file.filename
-# if(file_name.split(".")[-1:] != "pdf" or file_name.split(".")[-1:] != "PDF"):
-#     print("Please upload the pdf file")
-#     return {"message": "Please upload the pdf file"}
+    file_path = os.path.join(UPLOAD_DIR, file_name)
+    wfile = open(file_path, "wb")
+    wfile.write(file.file.read())
+    print("Successfully uploaded on server.")
 
-# file_path = os.path.join(UPLOAD_DIR, file_name)
-# wfile = open(file_path, "wb")
-# wfile.write(file.file.read())
-# print("Successfully uploaded on server.")
+    print("Upload the pdf on S3 bucket...")
+    upload_file(file_path, bucket=BUCKET_NAME, object_name=file_name)
+    print("Successfully uploaded on S3 bucket.")
 
-# print("Upload the pdf on S3 bucket...")
-# upload_file(file_path, bucket=BUCKET_NAME, object_name=file_name)
-# print("Successfully uploaded on S3 bucket.")
+    print("PDF extracting...")
+    jobId = startJob(BUCKET_NAME, file_name)
+    print("Started job with id: {}".format(jobId))
 
-# print("PDF extracting...")
-# jobId = startJob(BUCKET_NAME, file_name)
-# print("Started job with id: {}".format(jobId))
-
-# if(isJobComplete(jobId)):  # online if case
-if(True): # local
-    file = open("response.json", "r") #local response 
-    response = json.load(file) #local response 
-    all_blocks = []
-    # response = getJobResults(jobId)   #online response
-    
-    for blocks in response:
-        for item in blocks['Blocks']:
-            if("Text" in item and item["BlockType"] == "LINE"):
-                all_blocks.append(item)
-                        
-    if(all_blocks[0]["Text"] == "Rijksoverheid"):
-        result = filter2(all_blocks)
-        flag = save_db(result, type="2")
-    elif(all_blocks[1]["Text"] == "Afgegeven conform de Regeling energieprestatie gebouwen."):
-        result = filter3(all_blocks)
-        flag = save_db(result, type="3")
-    else:
-        result = filter1(all_blocks)
-        flag = save_db(result, type="1")
-    
-    # print("Save the result on AWS RDS")    
+    if(isJobComplete(jobId)):  # online if case
+    # if(True):                                         # local
+        # file = open("response.json", "r")             # local response 
+        # response = json.load(file)                    # local response 
+        all_blocks = []
+        response = getJobResults(jobId)                 # online response
         
-    response_file = open("result.json", "w")
-    response_file.write(simplejson.dumps(result, indent=4, sort_keys=True))     # magic happens here to make it pretty-printed
-    response_file.close()
-    
-    # if(flag):
-    #     return {"message": result}
-    # else:
-    #     raise HTTPException(status_code=400, detail="DB insert is failed. Please check PDF router or DB connection")
+        for blocks in response:
+            for item in blocks['Blocks']:
+                if("Text" in item and item["BlockType"] == "LINE"):
+                    all_blocks.append(item)
+                            
+        if(all_blocks[0]["Text"] == "Rijksoverheid"):
+            result = filter2(all_blocks)
+            flag = save_db(result, type="2")
+        elif(all_blocks[1]["Text"] == "Afgegeven conform de Regeling energieprestatie gebouwen."):
+            result = filter3(all_blocks)
+            flag = save_db(result, type="3")
+        else:
+            result = filter1(all_blocks)
+            flag = save_db(result, type="1")
+        
+            
+        response_file = open("result.json", "w")
+        response_file.write(simplejson.dumps(result, indent=4, sort_keys=True))     # magic happens here to make it pretty-printed
+        response_file.close()
+        
+        if(flag):
+            print("Save the result on AWS RDS")    
+            return {"message": result}
+        else:
+            raise HTTPException(status_code=400, detail="DB insert is failed. Please check PDF router or DB connection")
