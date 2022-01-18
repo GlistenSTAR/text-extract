@@ -107,7 +107,7 @@ app = FastAPI()
 async def root(file: UploadFile = File(...)):
     print("Uploading file on server....")
     file_name = file.filename
-    if(file_name.split(".")[-1:] != "pdf" or file_name.split(".")[-1:] != "PDF"):
+    if(file_name.split(".")[-1:][0] != "pdf" and file_name.split(".")[-1:][0] != "PDF"):
         print("Please upload the pdf file")
         return {"message": "Please upload the pdf file"}
 
