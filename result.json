@@ -1,90 +1,18 @@
 {
-    "Adres": "Scheepjeshof 138 3901C) Veenendaal",
-    "Bag_ID": " 0345010002065106",
-    "Bouwjaar": "1990",
-    "Class": "A",
-    "Compactheid": "1,19",
-    "Datum registratie": "08-07-2021",
-    "Energy": "150,80 kWh/m\u00b2 per jaar",
-    "Isolatie": {
-        "Buitendeuren": {
-            "Oost": [
-                {
-                    "Opp": "1,5 m\u00b2",
-                    "Ud": "3,4"
-                }
-            ]
-        },
-        "Daken": {},
-        "Gevelpanelen": {},
-        "Gevels": {
-            "Noord": [
-                {
-                    "Opp": "2,6 m\u00b2",
-                    "Rc": "2"
-                }
-            ],
-            "Oost": [
-                {
-                    "Opp": "15,0 m\u00b2",
-                    "Rc": "2"
-                }
-            ],
-            "West": [
-                {
-                    "Opp": "20,5 m\u00b2",
-                    "Rc": "2"
-                }
-            ]
-        },
-        "Koeling": {
-            "Aangesloten oppervlakte": "n.v.t.",
-            "Koeltoestellen": "Geen koeling"
-        },
-        "Ramen": {
-            "Oost": [
-                {
-                    "Opp": "5,3 m\u00b2",
-                    "Uw": "2,9"
-                }
-            ],
-            "West": [
-                {
-                    "Opp": "1,7 m\u00b2",
-                    "Uw": "2,9"
-                }
-            ]
-        },
-        "Ventilatie": {},
-        "Verwarming": {
-            "Aangesloten opp.": "96 m\u00b2",
-            "Verwarmingstoestellen": "HR-107 ketel"
-        },
-        "Vloeren": {
-            "Vloeren": [
-                {
-                    "Opp": "96 m\u00b2",
-                    "Rc": "1,71"
-                }
-            ]
-        },
-        "Warm water": {
-            "Douche met warmteterugwinning": "Niet aanwezig",
-            "Warmwatertoestellen": "Overig warm water toeste"
-        },
-        "Zonnepanelen": {
-            "Oppervlakte": "n.v.t.",
-            "Ori\u00ebntatie": "n.v.t.",
-            "Wattpiekvermogen": "geen zonnepanelen"
-        }
-    },
-    "Koeling": "Niet aanwezig",
-    "Registratienummer": "503591889",
-    "Ventilatie": "Natuurlijke toevoer met mechanische afzuiging",
-    "Verwarming": "HR-107 ketel",
-    "Vloeroppervlakte": "96m\u00b2",
-    "Warm water": "Overig warm water toestel",
-    "Woningtype": "Tussenwoning onderste bouwlaag",
-    "Zonneboiler": "Niet aanwezig",
-    "Zonnepanelen": "Niet aanwezig"
+    "Advice": [
+        "Gevelisolatie",
+        "Zonneboiler"
+    ],
+    "Class": "D",
+    "Elektriciteit": "645 kWh ",
+    "Energie Index": "1,72",
+    "Gas": "1.700 m\u00b3 ",
+    "Gebruiksoppervlak": "68,5 m\u00b2",
+    "Label Class": "Rijwoning tussen",
+    "Nummer/toevoeging": "10",
+    "Opnamedatum": "7 februari 2016",
+    "Postcode": "9321BG",
+    "Straat": "Hoppekampweg",
+    "Warmte": "0 GJ ",
+    "Woonplaats": "Peize"
 }
