@@ -27,13 +27,11 @@ isolatie["Zonnepanelen"] = {}
 def search_bottom_filter(item, items, method, size): # return item,
     result = ''
     if(size=="lg"):
-        x = item['Geometry']["Polygon"][0]["X"] + 1e-3
+        x = item['Geometry']["Polygon"][0]["X"] + 2e-3
         if(item["Text"] == "West"):
             x = item['Geometry']["Polygon"][0]["X"] + 1e-2
-        y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 5
-    elif(size=="lg"):
-        x = item['Geometry']["Polygon"][0]["X"] + 1e-3
-        y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 2
+        else:
+            y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 5
     elif(size=="md"):
         x = item['Geometry']["Polygon"][0]["X"] + 1e-2
         y = item['Geometry']["Polygon"][0]["Y"] + item['Geometry']["BoundingBox"]["Height"] * 3.15
@@ -304,5 +302,5 @@ def filter1(all_blocks):
                         isolatie["Zonnepanelen"][all_blocks[index_range+2]["Text"]] = search_bottom_filter(all_blocks[index_range+2], all_blocks, "", "md")  
                         
         finialDic["Isolatie"] = isolatie           
-        
+    
     return finialDic        
