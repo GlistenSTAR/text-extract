@@ -125,7 +125,7 @@ def filter2(all_blocks):
         
     for index in range(start_pos, end_pos):
          finialDic["Tip"].append(all_blocks[index]["Text"])
-    print(finialDic)
-    time.sleep(3000)        
+    # print(finialDic)
+    # time.sleep(3000)        
     return finialDic        
     
