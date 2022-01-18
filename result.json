@@ -32,7 +32,16 @@
                     "Ud": "3,4"
                 }
             ],
-            "Zuidoost": []
+            "Zuidoost": [
+                {
+                    "Opp": "1,9 m\u00b2",
+                    "Ud": "3,4"
+                },
+                {
+                    "Opp": "1,7 m\u00b2",
+                    "Ud": "3,4"
+                }
+            ]
         },
         "Daken": {
             "Horizontaal": [
