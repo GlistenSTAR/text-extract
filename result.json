@@ -1,31 +1,184 @@
 {
-    "Adres": "Muurhuizen 48 3811EK Amersfoort",
-    "Aparte warmtapwatervoorziening": "Geen apart toestel",
-    "Bag_ID": " 0307010000391317",
-    "Bouwperiode": "1988 t/m 1991",
-    "Dakisolatie": "Dak niet extra ge\u00efsoleerd",
-    "Datum van registratie": "17-09-2018",
-    "Energielabel": "D",
-    "Gevelisolatie": "Gevel niet extra ge\u00efsoleerd",
-    "Glas slaapruimte": "Dubbel glas",
-    "Glas woonruimte": "Dubbel glas",
-    "Registratienummer": "902151174",
-    "Tip": [
-        "(Extra) isolatie van uw begane grondvloer",
-        "Een HR107-combiketel voor de verwarming van uw woning en warmwater",
-        "Een zonneboiler voor het verwarmen van uw tapwater",
-        "Een warmtepomp voor de verwarming van uw woning",
-        "(Extra) isolatie van uw dak",
-        "Zonnepanelen voor het opwekken van elektriciteit",
-        "(Extra) isolatie van uw buitenmuren",
-        "HR+ + glas in de woonruimte(s)",
-        "Een HR107-ketel voor de verwarming van uw woning",
-        "HR+ + glas in de slaapruimte(s)"
-    ],
-    "Ventilatie": "Mechanische afzuiging",
-    "Verwarming": "Individuele CV-ketel, ge\u00efnstalleerd voor 1998",
-    "Vloerisolatie": "Vloer niet extra ge\u00efsoleerd",
-    "Woningtype": "Twee onder een kap",
-    "Woonoppervlakte": ">140 m\u00b2",
-    "Zonne-energie": "Geen zonnepanelen en geen zonneboiler"
+    "Adres": "Kopdammerdijk 11 1843KA Grootschermer",
+    "Bag_ID": " 0458010000010717",
+    "Bouwjaar": "1968",
+    "Class": "C",
+    "Compactheid": "0,97",
+    "Datum registratie": "08-07-2021",
+    "Energy": "193,84 kWh/m\u00b2 per jaar",
+    "Isolatie": {
+        "Buitendeuren": {
+            "Noord": [
+                {
+                    "Opp": "2,4 m\u00b2",
+                    "Ud": "3,4"
+                }
+            ],
+            "West": [
+                {
+                    "Opp": "2,0 m\u00b2",
+                    "Ud": "3,4"
+                }
+            ],
+            "Zuid": [
+                {
+                    "Opp": "2,0 m\u00b2",
+                    "Ud": "3,4"
+                }
+            ]
+        },
+        "Daken": {
+            "Noord": [
+                {
+                    "Opp": "30 m\u00b2",
+                    "Rc": "0,22"
+                }
+            ]
+        },
+        "Gevelpanelen": {},
+        "Gevels": {
+            "Noord": [
+                {
+                    "Opp": "23,3 m\u00b2",
+                    "Rc": "1,47"
+                }
+            ],
+            "Oost": [
+                {
+                    "Opp": "30,8 m\u00b2",
+                    "Rc": "1,47"
+                }
+            ],
+            "West": [
+                {
+                    "Opp": "37,0 m\u00b2",
+                    "Rc": "1,47"
+                }
+            ],
+            "Zuid": [
+                {
+                    "Opp": "16,0 m\u00b2",
+                    "Rc": "1,47"
+                }
+            ]
+        },
+        "Koeling": {
+            "Aangesloten oppervlakte": "n.v.t.",
+            "Koeltoestellen": "Geen koeling"
+        },
+        "Ramen": {
+            "Noord": [
+                {
+                    "Opp": "5,0 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "2,2 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "0,5 m\u00b2",
+                    "Uw": "5,1"
+                }
+            ],
+            "Oost": [
+                {
+                    "Opp": "3,1 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "2,8 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "2,2 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "1,4 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "0,9 m\u00b2",
+                    "Uw": "2,9"
+                }
+            ],
+            "West": [
+                {
+                    "Opp": "1,2 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "1,2 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "1,2 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "0,8 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "0,5 m\u00b2",
+                    "Uw": "2,9"
+                }
+            ],
+            "Zuid": [
+                {
+                    "Opp": "6,0 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "1,5 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "1,2 m\u00b2",
+                    "Uw": "2,9"
+                },
+                {
+                    "Opp": "0,9 m\u00b2",
+                    "Uw": "2,9"
+                }
+            ]
+        },
+        "Ventilatie": {
+            "Aangesloten Oppervlakte": "224 m\u00b2",
+            "Type ventilatiesysteem": "Natuurlijke ventilatie met raampjes en roosters",
+            "Warmteterugwinning": "Nee",
+            "Wisselstroomventilator": "Nee"
+        },
+        "Verwarming": {
+            "Aangesloten opp.": "224 m\u00b2",
+            "Verwarmingstoestellen": "HR-107 ketel"
+        },
+        "Vloeren": {
+            "Vloeren": [
+                {
+                    "Opp": "59,6 m\u00b2",
+                    "Rc": "0,15"
+                }
+            ]
+        },
+        "Warm water": {
+            "Douche met warmteterugwinning": "Niet aanwezig",
+            "Warmwatertoestellen": "Combitoestel"
+        },
+        "Zonnepanelen": {
+            "Oppervlakte": "12,8 m\u00b2",
+            "Ori\u00ebntatie": "Zuid",
+            "Wattpiekvermogen": "832 Wp"
+        }
+    },
+    "Koeling": "Niet aanwezig",
+    "Registratienummer": "109758638",
+    "Ventilatie": "Natuurlijke ventilatie via ramen en/of roosters",
+    "Verwarming": "HR-107 ketel",
+    "Vloeroppervlakte": "224 m\u00b2",
+    "Warm water": "Combiketel",
+    "Woningtype": "Vrijstaande woning",
+    "Zonneboiler": "Niet aanwezig",
+    "Zonnepanelen": "Aanwezig"
 }

@@ -147,8 +147,8 @@ async def root(file: UploadFile = File(...)):
             flag = save_db(result, type="1")
         
             
-        response_file = open("result.json", "w")
-        response_file.write(simplejson.dumps(result, indent=4, sort_keys=True))     # magic happens here to make it pretty-printed
+        response_file = open("response.json", "w")
+        response_file.write(simplejson.dumps(response, indent=4, sort_keys=True))     # magic happens here to make it pretty-printed
         response_file.close()
         
         if(flag):
