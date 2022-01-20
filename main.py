@@ -126,8 +126,8 @@ async def root(file: UploadFile = File(...)):
 
     if(isJobComplete(jobId)):  # online if case
     # if(True):                                         # local
-        # file = open("response.json", "r")             # local response 
-        # response = json.load(file)                    # local response 
+    #     file = open("response.json", "r")             # local response 
+    #     response = json.load(file)                    # local response 
         all_blocks = []
         response = getJobResults(jobId)                 # online response
         
@@ -138,13 +138,13 @@ async def root(file: UploadFile = File(...)):
                             
         if(all_blocks[0]["Text"] == "Rijksoverheid"):
             result = filter2(all_blocks)
-            flag = save_db(result, type="2")
+            flag = save_db(result, type=2)
         elif(all_blocks[1]["Text"] == "Afgegeven conform de Regeling energieprestatie gebouwen."):
             result = filter3(all_blocks)
-            flag = save_db(result, type="3")
+            flag = save_db(result, type=3)
         else:
             result = filter1(all_blocks)
-            flag = save_db(result, type="1")
+            flag = save_db(result, type=1)
         
             
         response_file = open("response.json", "w")
