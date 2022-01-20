@@ -2,5 +2,5 @@ env.py
 env1.py
 __pycache__
 upload
-./response.json
-./result.json
+response.json
+result.json
