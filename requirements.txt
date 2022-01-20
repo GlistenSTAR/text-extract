@@ -3,4 +3,6 @@ boto3
 shapely
 pymysql
 mysql-connector-python
-python-multipart
+fastapi
+uvicorn
+aiofiles
