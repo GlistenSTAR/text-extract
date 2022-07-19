@@ -12,3 +12,4 @@
 - Store document on AWS
 ```
 
+This project is implemented following requirement. :)
